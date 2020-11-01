@@ -37,13 +37,13 @@ public class Login {
 		PageFactory.initElements(driver,this);
 	}
 	
-	public void logincredentials(String email,String password,String captcha)
+	public void logincredentials(String email,String password) throws InterruptedException
 	{
 		signBtn.click();
 		emaillTb.sendKeys(email);
 		passwordTb.sendKeys(password);
 		captchaBtn.click();
-		captchaTb.sendKeys(captcha);
+		Thread.sleep(10000);
 		sumbitBtn.click();
 		
 	}

@@ -1,5 +1,6 @@
 package com.SkillRary.genericlib;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -27,20 +28,22 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
  */
 public class BaseClass implements AutoConstant {
 	public WebDriver driver;
-	public ExtentHtmlReporter  htmlreporter;
-	public ExtentReports reports;
-	public ExtentTest test;
+	static public ExtentTest test;
+	static public ExtentHtmlReporter htmlReport;
+	static public ExtentReports reports;
 /**
  * Reports are stored
  */
 	@BeforeSuite
 	public void configBS() {
-		 htmlreporter=new ExtentHtmlReporter(reportpath);
-		 htmlreporter.config().setDocumentTitle("SkillRaryReprts");
-		 htmlreporter.config().setTheme(Theme.DARK);
-		 reports=new ExtentReports();
-		 reports.attachReporter(htmlreporter);
-		 reports.setSystemInfo("Reporter","Bharani");
+		 htmlReport=new ExtentHtmlReporter(new File("./reports.html"));
+		  htmlReport.config().setDocumentTitle("SkillRaryReport");
+		  htmlReport.config().setTheme(Theme.DARK);
+		  reports=new ExtentReports();
+			
+			  reports.attachReporter(htmlReport); 
+			  reports.setSystemInfo("Environment","Windows"); 
+			  reports.setSystemInfo("Reporter", "Bharani");
 		 
 }
 /**
@@ -52,9 +55,11 @@ public class BaseClass implements AutoConstant {
 	public void configBC() throws FileNotFoundException, IOException {
 		System.setProperty(key, value);
 		driver = new ChromeDriver();
+		driver.manage().window().maximize();
 		driver.get(Propertylib.getpropertydata("url"));
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	
+		 
 	}
 
 	@BeforeMethod
@@ -88,7 +93,9 @@ public class BaseClass implements AutoConstant {
 		{
 			test.log(Status.SKIP,result.getMethod().getMethodName()+"is Skipped");
 		}
-    reports.flush();
+		reports.flush();
+		htmlReport.flush();
+    
 	}
 
 }
