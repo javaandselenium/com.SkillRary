@@ -23,7 +23,6 @@ public class TakeingCourse_Test extends BaseClass {
 		test=reports.createTest("TakeingCourse_Test");
 		test.log(Status.INFO,"Open the application");
 		Login l=new Login(driver);
-		test.log(Status.INFO,"Enter the us and pwd");
 		l.logincredentials(Propertylib.getpropertydata("email"),Propertylib.getpropertydata("password"));
 	    Home h=new Home(driver);
 	    test.log(Status.INFO,"Homepage the application");
