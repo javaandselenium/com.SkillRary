@@ -22,13 +22,16 @@ public class Photo {
 	 * @param name
 	 * @throws IOException
 	 */
-	public void getphoto(WebDriver driver, String name) throws IOException {
+	public static String getphoto(WebDriver driver, String name) throws IOException {
 		Date d = new Date();
 		String date = d.toString().replaceAll(":", "-");
+		String path=AutoConstant.photopath+date+name+".png";
+		
 		TakesScreenshot t = (TakesScreenshot) driver;
 		File src = t.getScreenshotAs(OutputType.FILE);
-		File dest = new File(AutoConstant.photopath + date + name + ".png");
+		File dest = new File(path);
 		FileUtils.copyFile(src, dest);
+		return path;
 	}
 
 }

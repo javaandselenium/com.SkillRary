@@ -1,9 +1,10 @@
-package com.TestScripts;
+package com.SkillRary.testscripts;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.testng.annotations.Test;
+
 
 import com.SkillRary.genericlib.BaseClass;
 import com.SkillRary.genericlib.Propertylib;
@@ -13,14 +14,19 @@ import com.SkillRary.pomrepository.pages.GotoCourse;
 import com.SkillRary.pomrepository.pages.Home;
 import com.SkillRary.pomrepository.pages.Login;
 import com.SkillRary.pomrepository.pages.TakeThisCourse;
+import com.aventstack.extentreports.Status;
 
 public class TakeingCourse_Test extends BaseClass {
 	@Test
 	public void takeingCourse() throws FileNotFoundException, InterruptedException, IOException
 	{
+		test=reports.createTest("TakeingCourse_Test");
+		test.log(Status.INFO,"Open the application");
 		Login l=new Login(driver);
+		test.log(Status.INFO,"Enter the us and pwd");
 		l.logincredentials(Propertylib.getpropertydata("email"),Propertylib.getpropertydata("password"));
 	    Home h=new Home(driver);
+	    test.log(Status.INFO,"Homepage the application");
 	    h.courseSerach(Propertylib.getpropertydata("coursename"));
 	    Course c=new Course(driver);
 	    c.seleniumAssignment();
